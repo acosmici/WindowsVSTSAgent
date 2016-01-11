@@ -1,0 +1,7 @@
+{
+    "itemDisplayName": "Deploy a Windows VM and Visual Studio Team Services Agent",
+    "description": "This template allows you to deploy a simple winodws VM with Visual Studio Team Services agent",
+    "summary" : "This template takes around 10 minutes to deploy this.",
+    "githubUsername": "TsuyoshiUshio",
+    "dateUpdated": "2016-01-11"
+}
