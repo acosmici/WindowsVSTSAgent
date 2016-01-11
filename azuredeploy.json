@@ -202,7 +202,7 @@
                                   "https://raw.githubusercontent.com/TsuyoshiUshio/WindowsVSOAgent/master/ConfigureAgent.ps1"
                        
                               ],
-                              "commandToExecute": "['powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1 ']"
+                              "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1"
                           }
                     }
                 }
