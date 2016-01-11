@@ -17,7 +17,6 @@ if(-not $env:ChocolateyInstall -or -not (Test-Path "$env:ChocolateyInstall")){
 }
 if(!(Test-Path $env:ChocolateyInstall\lib\Psake*)) { cinst psake -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\WindowsAzurePowershell*)) { cinst WindowsAzurePowershell -y }
-i
 choco install visualstudio2015community -y --force
 }
 
