@@ -7,7 +7,7 @@ Azure Rersource Manager Template for Visual Studio Team Services Build Agent on 
 These products will be installed via ARM.
 
 * Windows 2012 R2 DataCenter
-* chocolaty
+* chocolatey
 * Visual studio 2015 community
 * Microsoft Azure PowerShell
 * Visual Studio Team Services Agent
