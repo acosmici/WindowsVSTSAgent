@@ -67,7 +67,7 @@
         "nicName": "myVMNic",
         "vmStorageAccountContainerName": "vhds",
         "vmName": "MyWindowsVM",
-        "vmSize": "Standard_A2",
+        "vmSize": "Standard_D3",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
     },
