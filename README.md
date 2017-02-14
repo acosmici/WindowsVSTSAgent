@@ -16,7 +16,7 @@ These products will be installed via ARM.
 
 Just click this link and enter some parameters.
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FTsuyoshiUshio%2FWindowsVSOAgent%2Fmaster%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Facosmici%2FWindowsVSTSAgent%2Fdevelop%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
