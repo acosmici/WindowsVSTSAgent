@@ -197,11 +197,11 @@
                          "type": "CustomScriptExtension",
                           "typeHandlerVersion": "1.4",
                           "settings": {
-                              "fileUris": [
-                                  "https://raw.githubusercontent.com/TsuyoshiUshio/WindowsVSOAgent/master/agent.zip",
-                                  "https://raw.githubusercontent.com/TsuyoshiUshio/WindowsVSOAgent/master/ConfigureAgent.ps1"
-                       
-                              ],
+                            "fileUris": [
+                              "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/master/agent.zip",
+                              "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/master/ConfigureAgent.ps1"
+
+                            ],
                               "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1"
                           }
                     }
