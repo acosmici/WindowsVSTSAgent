@@ -1,76 +1,80 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "adminUsername": {
-            "type": "string",
-            "metadata": {
-                "description": "Username for the Virtual Machine."
-            }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "metadata": {
-                "description": "Password for the Virtual Machine."
-            }
-        },
-        "dnsLabelPrefix": {
-            "type": "string",
-            "metadata": {
-                "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-            }
-        },
-        "serverUrl": {
-            "type": "string",
-            "metadata": {
-                "description": "Visual Studio Team Services Server url. (e.g. https://xxxxxxx.visualstudio.com)"
-            }
-        },
-        "agentName": {
-            "type": "string",
-            "metadata": {
-                "description": "Agent Name. No restriction"
-            }
-        },
-        "poolName": {
-            "type": "string",
-            "metadata": {
-                "description": "Visual Studio Team Services Agent Pool name"
-            }
-        },
-        "loginUserName": {
-           "type": "string",
-           "metadata": {
-               "description": "Visual Studio Team Services Alternate authentication credentials user name(secondary)"
-           } 
-        },
-        "loginPassword": {
-            "type": "string",
-            "metadata": {
-                "description": "Visual Studio Team Services Alternate authentication credentials passowrd"
-            }
-        }
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Username for the Virtual Machine."
+      }
     },
-    "variables": {
-        "apiVersion": "2015-06-15",
-        "newStorageAccountName": "[concat(uniqueString(resourceGroup().id),'vstsagent')]",
-        "storageAccountType": "Standard_LRS",
-        "publicIPAddressName": "myPublicIP",
-        "publicIPAddressType": "Dynamic",
-        "virtualNetworkName": "MyVNET",
-        "addressPrefix": "10.0.0.0/16",
-        "subnetName": "subnet",
-        "subnetPrefix": "10.0.0.0/24",
-        "imagePublisher": "MicrosoftWindowsServer",
-        "imageOffer": "WindowsServer",
-        "OSDiskName": "osdiskforwindowssimple",
-        "nicName": "myVMNic",
-        "vmStorageAccountContainerName": "vhds",
-        "vmName": "MyWindowsVM",
-        "vmSize": "Standard_D3",
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
     },
+    "serverUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Visual Studio Team Services Server url. (e.g. https://xxxxxxx.visualstudio.com)"
+      }
+    },
+    "agentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Agent Name. No restriction"
+      }
+    },
+    "poolName": {
+      "type": "string",
+      "metadata": {
+        "description": "Visual Studio Team Services Agent Pool name"
+      }
+    },
+    "PATToken": {
+      "type": "string",
+      "metadata": {
+        "description": "Visual Studio Team Services PAT Token authentication"
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_DS3",
+      "allowedValues": [
+        "Standard_DS3_v2",
+        "Standard_DS4",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS4",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14"
+      ],
+      "metadata": {
+        "description": "Size of the Agent Server VM"
+      }
+    }
+  },
+  "variables": {
+    "apiVersion": "2015-06-15",
+    "newStorageAccountName": "[concat(uniqueString(resourceGroup().id),'vstsagent')]",
+    "storageAccountType": "Standard_LRS",
+    "publicIPAddressName": "myPublicIP",
+    "publicIPAddressType": "Dynamic",
+    "virtualNetworkName": "MyVNET",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetName": "subnet",
+    "subnetPrefix": "10.0.0.0/24",
+    "imagePublisher": "MicrosoftWindowsServer",
+    "imageOffer": "WindowsServer",
+    "OSDiskName": "osdiskforwindowssimple",
+    "nicName": "myVMNic",
+    "vmStorageAccountContainerName": "vhds",
+    "vmName": "[parameters('agentName')]",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
+  },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
@@ -89,7 +93,7 @@
             "properties": {
                 "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
                 "dnsSettings": {
-                    "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+                    "domainNameLabel": "[parameters('agentName')]"
                 }
             }
         },
@@ -151,7 +155,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('vmSize')]"
+                    "vmSize": "[parameters('vmSize')]"
                 },
                 "osProfile": {
                     "computername": "[variables('vmName')]",
