@@ -17,14 +17,12 @@ if(-not $env:ChocolateyInstall -or -not (Test-Path "$env:ChocolateyInstall")){
 }
 if(!(Test-Path $env:ChocolateyInstall\lib\Psake*)) { cinst psake -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\JavaSE*)) { cinst jdk8 -y }
-if(!(Test-Path $env:ChocolateyInstall\lib\git*)) { cinst git -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Maven*)) { cinst maven -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Gradle*)) { cinst gradle -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Ant*)) { cinst ant -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Gulp-Cli*)) { cinst gulp-cli -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\NugetPackageManager*)) { cinst nugetpackagemanager -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\NodeJS*)) { cinst nodejs.install -y }
-if(!(Test-Path $env:ChocolateyInstall\lib\bower*)) { cinst bower -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\WindowsAzurePowershell*)) { cinst WindowsAzurePowershell -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\VisualStudio2015Community*)) { cinst visualstudio2015community -y --force}
 }
@@ -46,7 +44,7 @@ If (Test-Path $agentdir){
   
 	}
 
-#download the agent.zip file from url
+#download the agent.zip file from a blob storrage
 $VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip"
 $destination = $agentdir + "\agent.zip"
  
@@ -76,4 +74,3 @@ New-Service -Name "VSTSAgent" -BinaryPathName $runfile -DisplayName "VSTSAgent" 
 Setup-Prerequisite
 
 Configure-Agent
-
