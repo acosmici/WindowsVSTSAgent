@@ -73,15 +73,7 @@ $configFile = $agentdir + "\config.cmd"
 New-Service -Name "VSTSAgent" -BinaryPathName $runfile -DisplayName "VSTSAgent" -StartupType Auto
 }
 
-#restart is needed for a full visual studio installation
-function Restart-VM
-{
-	#a restart is needed for a full visual studio installation
-	shutdown -f -r
-}
-
 Setup-Prerequisite
 
 Configure-Agent
 
-Restart-VM
