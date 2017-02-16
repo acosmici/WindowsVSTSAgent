@@ -199,14 +199,14 @@
                          "publisher": "Microsoft.Compute",
                          "type": "CustomScriptExtension",
                           "typeHandlerVersion": "1.4",
-                          "settings": {
-                            "fileUris": [
-                              "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip",
-                              "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/ConfigureAgent.ps1"
+                      "settings": {
+                        "fileUris": [
+                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip",
+                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/ConfigureAgent.ps1"
 
-                            ],
-                              "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1"
-                          }
+                        ],
+                        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1 -serverUrl $serverUrl -agentName $agentName -poolName $poolName -PATToken &PATToken"
+                      }
                     }
                 }
             ]
