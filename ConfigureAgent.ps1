@@ -2,20 +2,9 @@
 param
 (
 
-[Parameter(ParameterSetName='Default',Mandatory=$true)]
-[Parameter(ParameterSetName='Login',Mandatory=$true)]
 [string] $serverURL,
-
-[Parameter(ParameterSetName='Default',Mandatory=$true)]
-[Parameter(ParameterSetName='Login',Mandatory=$true)]
 [string] $PATToken,
-
-[Parameter(ParameterSetName='Default',Mandatory=$true)]
-[Parameter(ParameterSetName='Login',Mandatory=$true)]
 [string] $poolName,
-
-[Parameter(ParameterSetName='Default',Mandatory=$true)]
-[Parameter(ParameterSetName='Login',Mandatory=$true)]
 [string] $agentName
 
 )
@@ -40,13 +29,6 @@ if(!(Test-Path $env:ChocolateyInstall\lib\VisualStudio2015Community*)) { cinst v
 
 function Configure-Agent
 {
-
-#Set template-parameters
-$parameters["serverUrl"] = $serverUrl
-$parameters["PATToken"] = $PATToken
-$parameters["poolName"] = $poolName
-$parameters["agentName"] = $agentName
-
 #create the directory that will store the agent.zip file
 
 $agentdir="C:\agent_work\repo"
