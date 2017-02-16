@@ -46,7 +46,7 @@ If (Test-Path $agentdir){
   
 	}
 
-#download the agent.zip file from a blob storrage
+#download the agent.zip file from url
 $VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip"
 $destination = $agentdir + "\agent.zip"
  
@@ -55,7 +55,7 @@ $WebClient.DownloadFile($VSTSAgentsource, $destination)
 
 #unzip files to a target directory
 $shell = new-object -com shell.application
-$zip = $shell.NameSpace($agentdir + ì\agent.zipî)
+$zip = $shell.NameSpace($agentdir + ‚Äú\agent.zip‚Äù)
 foreach($item in $zip.items())
 {
 $shell.Namespace($agentdir).copyhere($item) 
@@ -73,6 +73,7 @@ $configFile = $agentdir + "\config.cmd"
 New-Service -Name "VSTSAgent" -BinaryPathName $runfile -DisplayName "VSTSAgent" -StartupType Auto
 }
 
+#restart is needed for a full visual studio installation
 function Restart-VM
 {
 	#a restart is needed for a full visual studio installation
