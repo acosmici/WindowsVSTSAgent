@@ -17,12 +17,14 @@ if(-not $env:ChocolateyInstall -or -not (Test-Path "$env:ChocolateyInstall")){
 }
 if(!(Test-Path $env:ChocolateyInstall\lib\Psake*)) { cinst psake -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\JavaSE*)) { cinst jdk8 -y }
+if(!(Test-Path $env:ChocolateyInstall\lib\git*)) { cinst git -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Maven*)) { cinst maven -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Gradle*)) { cinst gradle -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Ant*)) { cinst ant -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\Gulp-Cli*)) { cinst gulp-cli -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\NugetPackageManager*)) { cinst nugetpackagemanager -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\NodeJS*)) { cinst nodejs.install -y }
+if(!(Test-Path $env:ChocolateyInstall\lib\bower*)) { cinst bower -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\WindowsAzurePowershell*)) { cinst WindowsAzurePowershell -y }
 if(!(Test-Path $env:ChocolateyInstall\lib\VisualStudio2015Community*)) { cinst visualstudio2015community -y --force}
 }
@@ -44,7 +46,7 @@ If (Test-Path $agentdir){
   
 	}
 
-#download the agent.zip file from a blob storrage
+#download the agent.zip file from url
 $VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip"
 $destination = $agentdir + "\agent.zip"
  
@@ -53,7 +55,7 @@ $WebClient.DownloadFile($VSTSAgentsource, $destination)
 
 #unzip files to a target directory
 $shell = new-object -com shell.application
-$zip = $shell.NameSpace($agentdir + “\agent.zip”)
+$zip = $shell.NameSpace($agentdir + "\agent.zip")
 foreach($item in $zip.items())
 {
 $shell.Namespace($agentdir).copyhere($item) 
@@ -71,6 +73,15 @@ $configFile = $agentdir + "\config.cmd"
 New-Service -Name "VSTSAgent" -BinaryPathName $runfile -DisplayName "VSTSAgent" -StartupType Auto
 }
 
+#restart is needed for a full visual studio installation
+function Restart-VM
+{
+	#a restart is needed for a full visual studio installation
+	shutdown -f -r
+}
+
 Setup-Prerequisite
 
 Configure-Agent
+
+Restart-VM
