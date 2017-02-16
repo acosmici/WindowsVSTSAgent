@@ -205,7 +205,7 @@
                           "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/ConfigureAgent.ps1"
 
                         ],
-                        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1 -serverUrl $serverUrl -agentName $agentName -poolName $poolName -PATToken &PATToken"
+                        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file ConfigureAgent.ps1 -serverUrl $serverUrl -agentName $agentName -poolName $poolName -PATToken $PATToken"
                       }
                     }
                 }
