@@ -1,11 +1,22 @@
-#
-# Description : Configures the Visual Studio Team Services Agent on a local machine
-# 
-# Arguments   : 
-#
 
 param
 (
+
+[Parameter(ParameterSetName='Default',Mandatory=$true)]
+[Parameter(ParameterSetName='Login',Mandatory=$true)]
+[string] $serverURL,
+
+[Parameter(ParameterSetName='Default',Mandatory=$true)]
+[Parameter(ParameterSetName='Login',Mandatory=$true)]
+[string] $PATToken,
+
+[Parameter(ParameterSetName='Default',Mandatory=$true)]
+[Parameter(ParameterSetName='Login',Mandatory=$true)]
+[string] $poolName,
+
+[Parameter(ParameterSetName='Default',Mandatory=$true)]
+[Parameter(ParameterSetName='Login',Mandatory=$true)]
+[string] $agentName
 
 )
 
@@ -27,16 +38,57 @@ if(!(Test-Path $env:ChocolateyInstall\lib\WindowsAzurePowershell*)) { cinst Wind
 if(!(Test-Path $env:ChocolateyInstall\lib\VisualStudio2015Community*)) { cinst visualstudio2015community -y --force}
 }
 
-function Install-Agent
+function Configure-Agent
 {
-$shell = New-Object -com shell.application
-$zip = $shell.NameSpace((Get-Location).Path + "\agent.zip")
+
+#Set template-parameters
+$parameters["serverUrl"] = $serverUrl
+$parameters["PATToken"] = $PATToken
+$parameters["poolName"] = $poolName
+$parameters["agentName"] = $agentName
+
+#create the directory that will store the agent.zip file
+
+$agentdir="C:\agent_work\repo"
+
+If (Test-Path $agentdir){
+
+    Write-Output "Agent Directory is present and the creation will be skipped"
+         
+ }Else{
+        
+    Write-Output "Agent Directory is not present and it will be created"
+	New-Item -ItemType Directory -Force -Path $agentdir 
+  
+	}
+
+#download the agent.zip file from a blob storrage
+$VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip"
+$destination = $agentdir + "\agent.zip"
+ 
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile($VSTSAgentsource, $destination)
+
+#unzip files to a target directory
+$shell = new-object -com shell.application
+$zip = $shell.NameSpace($agentdir + “\agent.zip”)
 foreach($item in $zip.items())
 {
-    $shell.Namespace((Get-Location).Path).copyhere($item)
+$shell.Namespace($agentdir).copyhere($item) 
 }
 
+#configure the agent
+$runfile = $agentdir + "\run.cmd"
+$configFile = $agentdir + "\config.cmd"
+
+
+& $configFile  --unattended --url $serverUrl --auth PAT --token $PATToken --pool $poolName --agent $agentName --work C:\agent_work
+
+
+#run the agent as a windows service
+New-Service -Name "VSTSAgent" -BinaryPathName $runfile -DisplayName "VSTSAgent" -StartupType Auto
 }
 
 Setup-Prerequisite
-Install-Agent
+
+Configure-Agent
