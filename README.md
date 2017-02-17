@@ -9,12 +9,14 @@ These products will be installed via ARM.
 * Windows 2012 R2 DataCenter
 * Chocolatey
 * Java
+* Git
 * Maven
 * Gradle
 * Ant
 * Gulp-cli
 * Nuget Package Manager
 * NodeJS
+* Bower
 * Visual studio 2015 community
 * Microsoft Azure PowerShell
 * Visual Studio Team Services Agent
