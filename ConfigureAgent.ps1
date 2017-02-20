@@ -47,7 +47,7 @@ If (Test-Path $agentdir){
 	}
 
 #download the agent.zip file from url
-$VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip"
+$VSTSAgentsource = "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/master/agent.zip"
 $destination = $agentdir + "\agent.zip"
  
 $WebClient = New-Object System.Net.WebClient
