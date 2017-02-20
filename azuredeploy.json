@@ -201,8 +201,8 @@
                           "typeHandlerVersion": "1.4",
                       "settings": {
                         "fileUris": [
-                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/agent.zip",
-                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/develop/ConfigureAgent.ps1"
+                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/master/agent.zip",
+                          "https://raw.githubusercontent.com/acosmici/WindowsVSTSAgent/master/ConfigureAgent.ps1"
 
                         ],
                         "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ConfigureAgent.ps1  -serverUrl ', parameters('serverUrl'), ' -agentName ', parameters('agentName'), ' -poolName ', parameters('poolName'), ' -PATToken ', parameters('PATToken'))]"
