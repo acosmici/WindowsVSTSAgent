@@ -2,6 +2,12 @@
 
 Azure Rersource Manager Template for Visual Studio Team Services Build Agent on Windows Server
 
+# Prerequisites
+
+* VSTS Pool Agents
+* Personal Access Token (PAT)
+    https://www.visualstudio.com/en-us/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate
+
 ## 1. Products
 
 These products will be installed via ARM.
